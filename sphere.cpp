@@ -19,7 +19,8 @@ bool sphere::hit(const ray &r, double t_min, double t_max, hit_record &rec) cons
     }
     rec.t = t;
     rec.p = r.point_at_parameter(t);
-    rec.normal = (r.point_at_parameter(t) - center) / radius;
+    rec.normal = (r.point_at_parameter(t) - center) / radius;  // unit vector
+    rec.mat_ptr = mat_ptr;
     return true;
   } else {
     return false;
