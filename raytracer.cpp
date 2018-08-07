@@ -28,10 +28,12 @@ int main() {
   int nx = 400, ny = 200, ns = 100;
   std::cout << "P3\n" << nx << " " << ny << "\n255\n";
 
-  camera cam(vec3( 0.0,  0.0,  0.0),
-             vec3(-2.0, -1.0, -1.0),
-             vec3( 4.0,  0.0,  0.0),
-             vec3( 0.0,  2.0,  0.0));
+  vec3 lookfrom(3.0, 3.0, 2.0);
+  vec3 lookat(0.0, 0.0, -1.0);
+  double dist_to_focus = (lookfrom - lookat).length();
+  double aperture = 0.0;
+  camera cam(lookfrom, lookat, vec3(0.0,1.0,0.0), 20, double(nx)/double(ny),
+             aperture, dist_to_focus);
 
   hitable *list[4];
   list[0] = new sphere(vec3( 0.0,    0.0, -1.0),   0.5, new lambertian(vec3(0.1, 0.2, 0.5)     ));
