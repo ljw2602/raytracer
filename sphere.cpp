@@ -6,7 +6,7 @@ bool sphere::hit(const ray &r, double t_min, double t_max, hit_record &rec) cons
   double b = dot(oc, r.direction());
   double c = dot(oc, oc) - radius * radius;
   double discriminant = b * b - a * c;
-  if (discriminant > 0) {
+  if (discriminant > 0.0) {
     double t1 = (-b - sqrt(discriminant)) / a;
     double t2 = (-b + sqrt(discriminant)) / a;
     double t;

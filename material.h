@@ -1,6 +1,11 @@
 #ifndef MATERIALH
 #define MATERIALH
 
+struct hit_record;
+
+#include "ray.h"
+#include "hitable.h"
+
 vec3 random_in_unit_sphere() {
   vec3 p;
   do {
@@ -75,7 +80,9 @@ class dielectric : public material {
       if (dot(r_in.direction(), rec.normal) > 0.0) {
 	outward_normal = -rec.normal;
 	ni_over_nt = ref_idx;
-	cosine = ref_idx * dot(r_in.direction(), rec.normal) / r_in.direction().length();
+	//cosine = ref_idx * dot(r_in.direction(), rec.normal) / r_in.direction().length();
+	cosine = dot(r_in.direction(), rec.normal) / r_in.direction().length();
+	cosine = sqrt(1.0 - ref_idx * ref_idx * (1.0 - cosine * cosine));
       } else {
 	outward_normal = rec.normal;
 	ni_over_nt = 1.0 / ref_idx;
@@ -85,7 +92,6 @@ class dielectric : public material {
       if (refract(r_in.direction(), outward_normal, ni_over_nt, refracted)) {
 	reflect_prob = schlick(cosine, ref_idx);
       } else {
-	scattered = ray(rec.p, refracted);
 	reflect_prob = 1.0;
       }
 

@@ -14,9 +14,9 @@ class camera {
       double half_height = tan(theta / 2.0);
       double half_width  = aspect * half_height;
 
-      vec3 w = unit_vector(lookfrom - lookat);
-      vec3 u = unit_vector(cross(vup, w));
-      vec3 v = cross(w, u);
+      w = unit_vector(lookfrom - lookat);
+      u = unit_vector(cross(vup, w));
+      v = cross(w, u);
 
       origin             = lookfrom;
       lower_left_corner  = origin - half_width * u * focus_dist - half_height * v * focus_dist - w * focus_dist;

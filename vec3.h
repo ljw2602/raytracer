@@ -37,7 +37,7 @@ class vec3 {
       return e[0]*e[0] + e[1]*e[1] + e[2]*e[2];
     }
     inline void make_unit_vector() {
-      double k = 1.0 / sqrt(e[0]*e[0] + e[1]*e[1] + e[2]*e[2]);
+      double k = sqrt(e[0]*e[0] + e[1]*e[1] + e[2]*e[2]);
       e[0] /= k; e[1] /= k; e[2] /= k;
     }
 
