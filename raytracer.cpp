@@ -35,7 +35,7 @@ hitable* random_scene() {
       vec3 center(a + 0.9*drand48(), 0.2, b+ 0.9*drand48());
       if ( (center - vec3(4, 0.2, 0)).length() > 0.9 ) {
 	if (choose_mat < 0.8) {
-	  list[i++] = new sphere(center, 0.2, new lambertian(vec3(drand48()*drand48(), drand48()*drand48(), drand48()*drand48())));
+	  list[i++] = new moving_sphere(center, center + vec3(0.0, 0.5*drand48(), 0.0), 0.0, 1.0, 0.2, new lambertian(vec3(drand48()*drand48(), drand48()*drand48(), drand48()*drand48())));
 	} else if (choose_mat < 0.95) {
 	  list[i++] = new sphere(center, 0.2, new metal(vec3(0.5*(1 + drand48()), 0.5*(1+drand48()), 0.5*(1+drand48())), 0.5*drand48()));
 	} else {
@@ -58,17 +58,10 @@ int main() {
   vec3 lookfrom(13.0, 2.0, 3.0);
   vec3 lookat(0.0, 0.0, 0.0);
   double dist_to_focus = (lookfrom - lookat).length();
-  double aperture = 0.1;
+  double aperture = 0.0;
   camera cam(lookfrom, lookat, vec3(0.0,1.0,0.0), 20, double(nx)/double(ny),
-             aperture, dist_to_focus);
+             aperture, dist_to_focus, 0.0, 1.0);
 
-  /*hitable *list[5];
-  list[0] = new sphere(vec3( 0.0,    0.0, -1.0),   0.5, new lambertian(vec3(0.1, 0.2, 0.5)     ));
-  list[1] = new sphere(vec3( 0.0, -100.5, -1.0), 100.0, new lambertian(vec3(0.8, 0.8, 0.0)     ));
-  list[2] = new sphere(vec3( 1.0,    0.0, -1.0),   0.5, new      metal(vec3(0.8, 0.6, 0.2), 0.0));
-  list[3] = new sphere(vec3(-1.0,    0.0, -1.0),   0.5, new dielectric(1.5                     ));
-  list[4] = new sphere(vec3(-1.0,    0.0, -1.0), -0.45, new dielectric(1.5                     ));
-  hitable *world = new hitable_list(list, 5);*/
   hitable *world = random_scene();
 
   for (int j = ny-1; j >= 0; j--) {

@@ -7,7 +7,9 @@ class camera {
   public:
     camera(vec3 lookfrom, vec3 lookat, vec3 vup,
 	   double vfov, double aspect,  // vfov is top to bottom in degrees
-	   double aperture, double focus_dist) {
+	   double aperture, double focus_dist,
+	   double t0, double t1) {
+      time0 = t0; time1 = t1;
       lens_radius = aperture/2.0;
 
       double theta       = vfov * M_PI / 180.0;
@@ -28,6 +30,7 @@ class camera {
   private:
     vec3 origin, lower_left_corner, horizontal, vertical;
     vec3 u, v, w;
+    double time0, time1;
     double lens_radius;
 };
 
